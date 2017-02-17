@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>招贤纳士-详细页面</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="js/data.js"></script>
+<script>
+	
+</script>
+</head>
+
+<body>
+  <div id="wrap">
+  	<div class="left">
+    	<h2>招贤纳士</h2>
+      <ul>
+      	<!--<li class="focus"><a href="javascript:;">社会招聘</a></li>
+      	<li><a href="javascript:;">校园招聘</a></li>-->      </ul>
+    </div>
+  	<div class="right">
+    	<div class="title">
+      <!--	<img src="img/shzp.gif" />-->
+      </div>
+      <div class="info content">
+        <!-- <h2>测试工程师【社会招聘】</h2>
+        <div>
+          <span class="l">招聘公司：北京智信创通信息技术有限公司查看公司地理位置>></span>
+          <span>公司性质：股份制公司</span>
+          <span class="l">职位性质：全职</span>
+          <span>工作地点：上海</span>
+          <span class="l">工作经验：3年以上</span>
+          <span>学历要求：本科及以上</span>
+          <span class="l">招聘人数：2人</span>
+          <span>薪资待遇：面议</span>
+          <span class="l">发布日期：2013-7-30</span>
+          <span>招聘类型：社会招聘</span>
+        </div>
+        <div class="clear"></div>
+        <dl>
+          <dt>工作职责：</dt>
+          <dd>从事计算机软件的测试工作。</dd>
+        </dl>
+        <dl>
+          <dt>岗位要求：</dt>
+          <dd>1.计算机或相关专业本科以上学历；</dd>
+          <dd>2.从事软件测试工作3年及以上；</dd>
+          <dd>3.具备良好的沟通能力和快速学习能力；</dd>
+          <dd>4.精通测试策略和方法、测试用例设计；</dd>
+          <dd>5.熟悉DB2、AIX等平台的基本操作；</dd>
+          <dd>6.具备2年以上金融IT行业经验，特别是有金融行业相关业务的测试或者开发工作经验者优先。</dd>
+        </dl>
+        <p>有意者请投递简历至 liuyajuan@fulan.com.cn</p> -->
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</body>
+<script>
+	var wrap = document.getElementById('wrap'); 
+	var left = wrap.children[0];
+	var ul = left.children[1];
+	var lis = ul.children; 
+	var right = wrap.children[1];
+	var title = right.children[0];
+	var content = document.getElementsByClassName('content')[0];
+	//获取到页面的search值 
+	//没有search的时候走sh
+	//没有hash的时候走'1'
+	var search = location.search?location.search.split('=')[1]:'sh';
+	var page = location.hash?location.hash.split('&')[0].split('=')[1]:'1'; 
+	var num = location.hash?location.hash.split('&')[1].split('=')[1]:'1'; 
+	//左侧内容渲染  
+	var list = aData.list;
+	for( var k in list){
+		var li = document.createElement('li');
+		var a = document.createElement('a');
+		a.href = 'javascript:;'
+		a.innerHTML = list[k].text; 
+		if(list[k].lx == search){
+			li.className = 'focus'; 
+		}
+		li.appendChild(a); 
+		ul.appendChild(li); 
+	} 
+	//点击左侧列表设置下页面的searc值； 
+	for( var i=0;i<lis.length;i++){ 
+		lis[i].index = i;
+		lis[i].onclick = function(){ 
+			if(list[this.index].lx == search){
+				open('list.html?t='+list[this.index].lx+'#page='+page,'_self')
+			}else{
+				open('list.html?t='+list[this.index].lx,'_self')
+			}
+			
+//			location.search = 't='+list[this.index].lx;
+//			location.hash = '';
+		}  
+	}  
+	var str = '';
+	var data = aData[search].text[num];
+	str = '<h2>'+data.zw+'</h2><div><span class="l">招聘公司：'+data.gs+'查看公司地理位置>></span><span>'+data.xz+'</span><span class="l">职位性质：'+data.gz+'</span><span>工作地点：'+data.dd+'</span><span class="l">工作经验：'+data.jy+'</span><span>学历要求：'+data.xl+'</span><span class="l">招聘人数：'+data.rs+'</span><span>薪资待遇：'+data.dy+'</span><span class="l">发布日期：'+aData.date(data.sj,0)+'</span><span>招聘类型：'+data.lx+'</span></div><div class="clear"></div>';
+	if(data.info.length>1){
+		str+='<dl><dt>'+data.info[1].t+'</dt><dd>'+data.info[1].l+'</dd></dl>';
+	}  
+	str+='<dl><dt>'+data.info[0].t+'</dt>'
+	for (var i=0;i<data.info[0].l.length;i++) {
+		str+='<dd>'+data.info[0].l[i]+'</dd>';
+	} 
+	str+='</dl><p>'+aData.email+'</p>';
+	content.innerHTML = str;
+	
+	//右侧图片渲染
+	var img = document.createElement('img');
+	img.src = aData[search].img;
+	title.appendChild(img);
+</script>
+</html> 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+			function json1(obj){
+				var newObj = {
+					gs : 'XXX公司',
+					xz : '有限公司',
+					gz : '全职',
+					dd : '北京',
+					jy : '无',
+					xl : '无',
+					rs : '1',
+					dy : '面议',
+					sj : [new Date().getFullYear(),new Date().getMonth()+1,new Date().getDate()],
+					lx : '社会招聘',
+				};
+				for (var k in newObj) {
+					newObj[k] = obj[k];
+				};
+				return newObj;
+			}
+		</script>
+	</body>
+</html>

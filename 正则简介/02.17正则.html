@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*
+			 	正则：
+			 		规则
+			 	正则表达式：
+			 		主要来操作（擅长匹配模糊范围）字符串，它处理起来更高效，但是维护不方便，可读性不高。
+			 		
+			 * 	两种写法：
+			 * 		1.标准 new RegExp（规则，修饰符）
+			 * 		2.简写// 
+			 * 	
+			 * 	转义符：\
+			 * 		注意：碰到类似的\/要转义...
+			 * 	修饰符：
+			 * 		i  忽略大小写
+			 * 		简写i   标准 ('f','i')	
+			 * 		g  查找全局 
+			 * 	量词：
+			 * 		+    最小是一个 ，最大是无限 
+			 * 	\d  代表 一个 数字
+			 * 	\D  代表非数字
+			 * 	子项-（）
+			 * 		从左至右数
+			 * 
+			 * test:检测是否正则匹配的内容
+			 * 		如果正则成立那么返回一个布尔值。
+			 * 		正则.test（string）
+			 * 		 
+			 * 字符串方法：
+			 * match：将匹配到的字符放到一个数组中返回
+			 * 		string.match(正则)
+			 * 
+			 * search：找到（）匹配字符的位置
+			 * 		和indexOf（）是兄弟
+			 * 		string.search(正则/字符串都支持)
+			 *  
+			 * replace：对字符串替换操作
+			 * 		string.replace(要替换谁||正则，替换成什么||function（$0，$1，$2）｛｝)
+			 *										//每匹配成功一次就会执行这个函数，
+			 * 								一般情况下：
+			 * 										$0第一个参数就是匹配到的内容
+			 * 										$1第二个参数就是当前匹配的索引值
+			 * 										$2第三个参数是当前总的字符串
+			 * 										第四个以后都为undefined；
+			 * 		返回值：替换好的字符串
+			 * 		|  ：或者
+			 * 		注意：如果使用函数，那么一定要有return
+			 * 		
+			 * 正则的特性：
+			 * 		懒惰模式：不会多找
+			 * 		贪婪模式：无限的查找
+			 * 
+			 * 如果正则中有子项：（）
+			 * 		从函数的第一个参数之后就是匹配到的子项值，
+			 * 		当参数的个数等于子项的个数+1的时候，之后都为整成模式下的参数（比如：索引，整个字符，undefined..）
+			 *   
+			 * 
+			 * */
+			/*var str = 'asa77da8d9as5da1111afg';
+			var re = /\d/;
+			console.log(re.test(str))*/
+			
+			/*var str = 'asa77da8d9as5da1111afg'; 
+			var re = /\d+/g;
+			console.log(str.match(re))*/
+			
+			/*var str = 'asa77da8d9as5da1111afg'; 
+			var re = /\d/;
+			console.log(str.search(re))*/
+			
+			/*var str = '中国总书记习大大说法论功是邪教'; 
+			var re = /中国|习大大|法论功|邪教/g;
+			console.log(str.replace(re,function($0){
+				var s = '';
+				for (var i=0;i<$0.length;i++) {
+					s +="*";
+				}
+				return s;
+			}))*/
+			
+			
+			
+		</script>
+	</body>
+</html>

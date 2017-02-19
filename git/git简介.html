@@ -85,7 +85,65 @@
 			 * 
 			 * 	git remote -v （查看上传、下载地址）
 			 * 
-			 * 	git push origin mater （上传）
+			 * 	git push origin master （上传）
+			 * 
+			 * 分支：
+			 * 	使用场景：
+			 * 		1开发不稳定版本的时候会使用
+			 * 		2.开发生命周期较短的
+			 * 		3.多人协作开发
+			 * 	查看分支
+			 * 		git branch
+			 * 	新建分支
+			 * 		git branch 分支名
+			 * 	切换分支
+			 * 		git checkout 分支名
+			 * 	快速新建/切换分支
+			 * 		git checkout -b 分支名
+			 * 	强行删除分支
+			 * 		git branch -D 分支名
+			 * 		删除合并后的分支    git branch -d 分支名
+			 * 
+			 * 合并分支
+			 * 		git merge 分支名
+			 * 查看已经合并的分支
+			 * 		git branch --merged
+			 * 查看未合并的分支
+			 * 		git branch --nomerged
+			 * 
+			 * 多人协作开发：
+			 * 		1.找合伙人
+			 * 			进入github的项目中 ，点击new collaborator，输入小伙伴的名字，等待确认加入
+			 * 		2.小伙伴就能和自己一样开发同一个项目
+			 * 开发的时候会遇到冲突的问题
+			 * 		在提交的时候报错了
+			 * 解决：	
+			 * 		1.先将远程仓库的代码拉取下来   git fetch
+			 * 		2.对比差异                                     git diff master origin/master
+			 * 		3.合并两边的代码，人为解决       git merge origin/master
+			 * 		4.人为判断解决（删除不要的代码）
+			 * 		5.重新提交，并push到远程仓库OK
+			 * 		
+			 * 当自己没有开发权限的时候，也想参与别人的项目
+			 * 		1.先fork别人的项目（自己的github中就有了别人的项目目录，带个小插）
+			 * 		2.把参与的项目clone下来，修改，提交、
+			 * 		3.发送修改合并的请求
+			 * 			（1）.在项目的导航栏有一个pull  
+			 * 			（2）点击create pull request 
+			 * 			（3）可以留言... 点击这个按钮create pull request  。等待别人确认
+			 * 	
+			 * 当收到别人帮忙修改项目通知时
+			 * 		1.点击 opened pull request （如果有人发送请求会有链接）
+			 * 		2.files changed 去擦看修改的内容
+			 * 		3.如果值得合并点击  merge pull request
+			 * 		4.confirm merge （确定合并）
+			 * 		5.回复留言
+			 * 
+			 * 想避免每一次都克隆别人更新的项目
+			 * 		1.先把自己fork的项目删除
+			 * 		2.在重新fork别人的项目
+			 * 		3.git pull
+			 * 		 
 			 * 
 			 * 
 			 * 

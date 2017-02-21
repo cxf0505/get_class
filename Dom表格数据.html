@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        td {
+            text-align: center;
+        }
+    </style> 
+</head> 
+<body> 
+<form action="" name="form">
+    <p>
+        姓名:<input type="text" name="username"/>
+    </p>
+    <p>
+        年龄:<input type="text" name="age"/>
+    </p>
+    <p>
+        性别: <select name="sex">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+    </p>
+    <p>
+        <input type="button" value="添加" name="add"/>
+    </p>
+</form>
+    <input type="button" value="反选" class="btn">
+    <input type="button" value="批量删除"  class="btn"> 
+    <table id="tab1" width="100%" border="1"> 
+        <thead>
+        <tr>
+            <th>
+                <input id="checkAll" type="checkbox"/> 全选
+            </th>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+           <!--  <tr>
+                <td>
+                    <input type="checkbox"/>
+                </td>
+                <td>1</td>
+                <td>周杰伦</td>
+                <td>37</td>
+                <td>男</td>
+                <td>
+                    <a href="javascript:;">上移</a> |
+                    <a href="javascript:;">下移</a> |
+                    <a href="javascript:;">删除</a>
+                </td>
+            </tr> -->
+        </tbody> 
+    </table>
+    <script type="text/javascript">
+    /*
+        1、根据数据生成表格。
+        2、数据的添加
+        3、全选
+        4、上移下移删除
+        5、排序
+        6、反选
+        7、批量删除（被选中的删除）
+    */
+    var data = [
+            {
+                 'id' : 1,
+                'username' : '周杰伦',
+                'age' : 37,
+                'sex' : '男'
+            },
+            {
+                'id' : 2,
+                'username' : '阿信',
+                'age' : 39,
+                'sex' : '男'
+            },
+            {
+                'id' : 3,
+                'username' : '王俊凯',
+                'age' : 17,
+                'sex' : '男'
+            },
+            {
+                'id' : 4,
+                'username' : '宋仲基',
+                'age' : 31,
+                'sex' : '男'
+            },
+            {
+                'id' : 5,
+                'username' : '赵雅芝',
+                'age' : 62,
+                'sex' : '女'
+            }
+        ]; 
+// 	1、根据数据生成表格。 2、数据的添加
+	var form = document.getElementsByTagName('form')[0];
+	var tabe1 = document.getElementById('tab1'); 
+	var tbody = tabe1.tBodies[0]; 
+	var checkAll = document.getElementById('checkAll'); //全选按钮
+	var trs = tbody.getElementsByTagName('tr');//全部的tr；
+	var ipts= tbody.getElementsByTagName('input');//tbody中全部按钮
+	var btns = document.getElementsByClassName('btn'); 
+	var num = data.length;
+	for (var i = 0; i<data.length;i++) {
+		fnx(data[i])
+	}
+	function fnx(d){
+		var tr = document.createElement('tr');
+		var td = document.createElement('td');
+		var input = document.createElement('input');
+		input.type = 'checkbox'; 
+		input.onclick = iptOnclick;
+		function iptOnclick(){ //点击判断是否出现全选
+			checkAll.checked = true;
+			for (var i = 0;i<ipts.length;i++) {
+				if(!ipts[i].checked){ 
+					checkAll.checked = false;
+					return;
+				} 
+			} 
+		}  
+		td.appendChild(input);
+		tr.appendChild(td);
+		for (var k in d) {
+			var td1 = document.createElement('td');
+			td1.innerHTML = d[k];
+			tr.appendChild(td1);
+		}  
+		var td2 = document.createElement('td');
+		var a1 = document.createElement('a');
+		a1.innerHTML = '上移'; 
+		a1.href = 'javascript:;'
+		var a2 = document.createElement('a');
+		a2.innerHTML = '下移';
+		a2.href = 'javascript:;'
+		var a3 = document.createElement('a');
+		a3.innerHTML = '删除';
+		a3.href = 'javascript:;'
+		var te1 = document.createTextNode('|');
+		var te2 = document.createTextNode('|');
+		td2.appendChild(a1);
+		td2.appendChild(te1);
+		td2.appendChild(a2);
+		td2.appendChild(te2);
+		td2.appendChild(a3);
+		tr.appendChild(td2);
+		tbody.appendChild(tr); 
+		tr.num = d.id;
+		a1.onclick = fn1;
+		a2.onclick = fn2;
+		a3.onclick = fn3;
+		function fn1(){//上移节点
+			var oTr = this.parentElement.parentElement;
+			if(oTr.previousElementSibling){
+				tbody.insertBefore(oTr,oTr.previousElementSibling);
+			}else{
+				alert('到顶了！！！');
+			}
+		} 
+		function fn2(){//下移节点
+			var oTr = this.parentElement.parentElement;
+			if(oTr.nextElementSibling){
+				tbody.insertBefore(oTr,oTr.nextElementSibling.nextElementSibling);
+			}else{
+				alert('到底了！！！');
+			}  
+		} 
+		function fn3(){//删除节点 
+			var oTr = this.parentElement.parentElement;
+			for (var j=0;j<data.length;j++) {
+				if(tr.num == data[j].id){
+					data.splice(j,1)
+				}
+			} 
+			tbody.removeChild(oTr); 
+			 iptOnclick(); //判断是否出现全选
+			 if(data.length == 0){ //当tr为0个的时候，全选按钮变为false
+				checkAll.checked = false; 
+			}
+			 console.log(data)
+		} 
+	}  
+//	//添加节点 
+	var add = form.add;  
+	add.onclick = function(){  
+		checkAll.checked = false;
+		num++; //点击添加的时候，在数组个数的基础上增加++；
+		var id = num;
+		var username = form.username.value;
+		var age = form.age.value;
+		var sex = form.sex.value;  
+		var json = {'id':id,'username':username,'age':age,'sex':sex}  
+		data.push(json) ; //添加对应的数据进数组
+		fnx(data[data.length-1]); //把这条数据渲染到页面
+//		console.log(data)
+	} 
+////	3、全选	 
+	checkAll.onclick = function(){
+		chAll();
+	} 
+	function chAll(){ 
+		for (var i=0;i<ipts.length;i++) { 
+			ipts[i].checked = checkAll.checked;
+		}
+	}
+//	反选
+	btns[0].onclick = function(){  
+		if(ipts.length == 0){//如果列表没有一个数据的时候，点击反选不执行
+			return;
+		}
+		checkAll.checked = true; 
+		for (var i = 0;i<ipts.length;i++) { 
+			if(!ipts[i].checked){
+				ipts[i].checked = true;  
+			}else{
+				ipts[i].checked = false;
+				checkAll.checked = false; 
+			}
+		}  
+	}
+//	批量删除
+	btns[1].onclick = function(){ 
+		for (var i = 0;i<ipts.length;i++) {
+			if(!ipts[i].checked){ //判断全选
+				checkAll.checked = false; 
+			}else{
+				checkAll.checked = false; 
+			}
+		} 
+		for (var i = 0;i<ipts.length--;i++) {
+			if(ipts[i].checked){  
+				//如果哪个按钮是选中状态，先把数组中对应的数据删除
+				for (var j=0;j<data.length;j++) {
+					if(trs[i].num == data[j].id){
+						data.splice(j,1)
+					}
+				} 
+				var removeoTr = ipts[i].parentElement.parentElement;//获取到选中状态的按钮的父级的父级。
+				//然后把页面中的节点删除
+				tbody.removeChild(removeoTr); 
+				i--;  
+			}
+		} 
+		console.log(data)
+	} 
+//排序
+	var head = document.getElementsByTagName('thead')[0];
+	var tr0 =  head.getElementsByTagName('tr')[0];
+	var idipt =  tr0.getElementsByTagName('th')[1];
+	var ageipt =  tr0.getElementsByTagName('th')[3]; 
+	idipt.onclick = function(){
+	 	fnSort(this,1);
+	}
+	ageipt.onclick = function(){
+		fnSort(this,3);
+	}
+	function fnSort(obj,x){
+		var arr = []; 
+		var tr = tbody.getElementsByTagName('tr') 
+		for (var i = 0;i<tr.length;i++) { 
+			 var td = tr[i].getElementsByTagName('td')[x];
+			 arr.push([td.innerHTML,tr[i]] ) 
+		}
+		obj.onOff = !obj.onOff;
+		arr.sort(function(a,b){ 
+			if(obj.onOff){ 
+				return b[0]-a[0]; 
+			}else{
+				return a[0]-b[0];
+			} 
+		}) 
+		for (var i=0;i<arr.length;i++) {  
+			tbody.appendChild(arr[i][1])
+		}
+	} 
+    </script>
+</body>
+</html>

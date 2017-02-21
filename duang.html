@@ -26,10 +26,7 @@
 			background: darkcyan;
 			opacity: .4;
 			left: 0;
-			top: 0;
-			
-			
-			
+			top: 0;  
 		}
 	</style>
 	<body>
@@ -97,10 +94,8 @@
 						})
 						pos.oldX = ev.clientX;//单个的旧点
 						pos.oldY = ev.clientY; 
-					}
-					
-				} 
-				 
+					} 
+				}  
 			}
 		} 
 		document.onmousemove = function(ev){   
@@ -175,10 +170,10 @@
 			var client1 = obj1.getBoundingClientRect();
 			var client2 = obj2.getBoundingClientRect();
 			if(client1.right<client2.left || client1.bottom<client2.top || client1.left>client2.right || client1.top>client2.bottom){
-//				console.log('假')
+			//	console.log('假')
 				return false;
 			}else{
-//				console.log('真')
+			//	console.log('真')
 				return true;
 			}
 		}

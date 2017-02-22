@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul{
+	position:relative;
+	margin-top:100px;
+	overflow: hidden;
+	height:70px;
+}
+li{
+	position: relative;
+	top: 0;
+	left: 0;
+	float: left;
+}
+img{
+	display: block;
+	border:none;
+	vertical-align: top; 
+}
+
+</style>
+<body>
+	<ul id="oUl">
+		<li>
+			<img src=""/>
+			<img src=""/>
+		</li>
+		<li>
+			<img src=""/>
+			<img src=""/>
+		</li>
+		
+		<li>
+			<img src=""/>
+		</li>
+		
+		<li>
+			<img src=""/>
+			<img src=""/>
+		</li>
+		<li>
+			<img src=""/>
+			<img src=""/>
+		</li>
+		<li>
+			<img src=""/>
+		</li>
+		<li>
+			<img src=""/>
+			<img src=""/>
+		</li>
+		<li>
+			<img src=""/>
+			<img src=""/>
+		</li>
+	</ul>
+</body>
+<script src="move3.js"></script>
+<script type="text/javascript"> 
+	var oUl = document.getElementById('oUl');
+	var aLi = oUl.getElementsByTagName('li'); 
+	var img2 =aLi[2].getElementsByTagName('img')[0];
+	var img5 =aLi[5].getElementsByTagName('img')[0]; 
+	//旧时间，老时间
+	var date1 = time() ; 
+	
+	for(var i=0; i<aLi.length;i++){ 
+		fn1(i);
+	}
+	//传参设置时间初始化
+	function fn1(n){
+		var img = aLi[n].getElementsByTagName('img')[0]; 
+		if(n==2||n==5){
+			img.src= 'img/c.jpg';//初始小点
+		}else{
+			img.src = 'img/'+date1.charAt(n)+'.jpg';	//初始时间
+		} 
+	}
+	
+	setInterval(function(){
+		//点闪烁
+		img2.src = img5.src = 'img/c.jpg';  
+		setTimeout(function(){
+			img2.src = img5.src = 'img/b.jpg';  	
+		},500)  
+		var date2 = time();//新时间
+		for(var i=0; i<aLi.length;i++){ 
+			if(date2.charAt(i)!==date1.charAt(i)){ //判断哪位不相等
+				tab(i,date2.charAt(i))			//把实参掺入tab函数
+				/*变化的数字为第i位*/    /*最新时间第I位的值、数字是多少 */  	/*   这个I用不了，所以传参。***/
+			}
+		} 
+		date1 = date2; //每秒把新时间赋给旧时间，不然旧时间太老了。新时间对于它，每位都的变化
+	},1000);
+	function time(){//获取计算时间，转化为字符串str
+		var date = new Date();
+		var h = date.getHours();
+		var m = date.getMinutes();
+		var s = date.getSeconds();
+		//时间  
+		var str = two(h)+':'+two(m)+':'+two(s); //拼成字符串
+		return str;  //返回出去，让外面的作用域也可以用
+	}	  
+	//时间图片切换函数
+	function tab(n,s){
+		var aLi = oUl.getElementsByTagName('li')[n];  //第N个li     是变化的数字为第i位
+		var bimg = aLi.getElementsByTagName('img');	
+		bimg[1].src = 'img/'+s+'.jpg';  //变化第i位，对应 的值是s。       是  date2.charAt(i)
+		move(aLi,'top',-70,800,function(){
+			bimg[0].src = 'img/'+s+'.jpg'; 
+			aLi.style.top = '0';
+		})
+	}
+	//补零
+		function two(n){
+			return n<10?'0'+n:n
+		} 
+</script>
+</html>

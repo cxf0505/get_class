@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<title>模拟留言板</title>
+<link href="lyb_style.css" rel="stylesheet" type="text/css" />
+<style>
+.yellow{background:yellow;}
+.grey{background:#f1f1f1;}
+.show{display:block}
+.hide{display:none}
+i{margin-right: 5px;}
+</style>
+
+</head>
+
+<body>
+<script src="jquery-3.1.1.min.js"></script>
+<div id="parent">
+	<h4>留言内容：</h4>
+	<div id="box">
+		<em id="em">这里会显示留言内容……</em>
+		 <!--<p class="grey"><i>2.</i><b>3</b><span class="hide"><a href="javascript:;">确定删除</a><strong style="color:red">第2条</strong></span></p> -->
+	</div>
+    
+	<textarea id="text"></textarea><br />
+	<input id="btn" type="button" value="发表留言" />
+</div>
+<script> 
+	var $box = $('#box'),
+		$em = $('#em'),
+		$text = $('#text'),
+		$btn = $('#btn'),
+		num = 0;  
+	//点击发表留言按钮函数 
+	$btn.click(function(){ 
+		var value = $text.val(); 
+		if(!value){
+			alert('请输入内容')
+		}else{ 
+			num++; 
+			var $p = $(`<p class="grey"><i>${num}.</i><b>${value}</b><span class="hide"><a href="javascript:;">确定删除</a><strong style="color:red">第${num}条</strong></span></p>`)
+			$box.append($p);
+			//如果有留言的话，添加p移入/移出事件
+			$p.mouseover(function(){   
+				$(this).attr('class','yellow').find('span').show();//$(this).addClass('yellow').removeClass('grey'); 
+			})
+			$p.mouseout(function(){  
+				$(this).attr('class','grey').find('span').hide();//$(this).addClass('grey').removeClass('yellow'); 
+			}) 
+			//点击确定删除按钮
+			var $a = $box.find('a');
+			$a.off().click(function(){ 
+				num--;
+				$(this).closest('.yellow').remove();
+				var $i = $box.find('i'),
+					$strong = $box.find('strong');
+				for (var i= 0;i<num;i++) {
+					$i.eq(i).text(i+1);
+					$strong.eq(i).text(`第${i+1}条`);
+				}	 
+				emBlockNone();//em显示隐藏 
+			})
+		}
+		$text.val('');
+		emBlockNone();//em显示隐藏 
+	})
+	   
+	//如果有留言的时候，em节点隐藏，否则消失
+	function emBlockNone(){
+		if($box.find('p').length==0){
+			$em.css('display','block');
+		}else{
+			$em.css('display','none'); 
+		}
+	}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

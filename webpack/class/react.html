@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>React</title>
+		<style>
+			.h1{
+				color: red;
+			}
+			.active{
+				background:red;
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script type="text/javascript" src="react.js" charset="UTF-8"></script> 
+		<script type="text/javascript" src="react-dom.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="browser.min.js" charset="UTF-8"></script>
+		<script type="text/babel">
+			let H = React.createClass({
+				render:function(){
+					return ( 
+						<h1 className = "h1">我来了</h1> 
+					)
+				}
+			})
+			ReactDOM.render(
+				<H />,
+				document.getElementById('box')
+			)
+		</script>
+	</body>
+</html>
